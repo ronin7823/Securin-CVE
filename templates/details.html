@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CVE Details</title>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <div id="details"></div>
+    <script>
+        const cveId = "{{ cve_id }}";
+        async function fetchDetails() {
+            const response = await fetch(`/cves/${cveId}`);
+            const data = await response.json();
+            document.getElementById('title').innerText = data.cve_id;
+            document.getElementById('details').innerHTML = JSON.stringify(data, null, 2);
+        }
+        fetchDetails();
+    </script>
+</body>
+</html>
+

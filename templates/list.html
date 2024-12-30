@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CVE List</title>
+</head>
+<body>
+    <h1>CVE List</h1>
+    <table id="cveTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Score</th>
+                <th>Published Date</th>
+                <th>Last Modified Date</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        async function fetchCVEs() {
+            const response = await fetch('/cves');
+            const data = await response.json();
+            const table = document.querySelector('#cveTable tbody');
+            data.forEach(cve => {
+                const row = `<tr onclick="window.location='/cves/details/${cve.cve_id}'">
+                    <td>${cve.cve_id}</td>
+                    <td>${cve.description}</td>
+                    <td>${cve.base_score || 'N/A'}</td>
+                    <td>${cve.published_date}</td>
+                    <td>${cve.last_modified_date}</td>
+                </tr>`;
+                table.innerHTML += row;
+            });
+        }
+        fetchCVEs();
+    </script>
+</body>
+</html>
+
